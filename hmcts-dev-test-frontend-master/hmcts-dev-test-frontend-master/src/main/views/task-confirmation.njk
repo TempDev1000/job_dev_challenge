@@ -1,0 +1,20 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% extends "template.njk" %}
+
+{% block content %}
+  <h1 class="govuk-heading-xl">{{ message }}</h1>
+
+  {% if task %}
+
+    {% set titleRow = { key: { text: "Title" }, value: { text: task.title } } %}
+    {% set descriptionRow = { key: { text: "Description" }, value: { text: task.description or 'N/A' } } %}
+    {% set statusRow = { key: { text: "Status" }, value: { text: task.status } } %}
+    {% set dueDateRow = { key: { text: "Due Date/Time" }, value: { text: task.formattedDueDate } } %}
+
+    {% set rows = [titleRow, descriptionRow, statusRow, dueDateRow] %}
+
+    {{ govukSummaryList({ rows: rows }) }}
+  {% endif %}
+
+  <a href="/tasks" class="govuk-link">Create another task</a>
+{% endblock %}

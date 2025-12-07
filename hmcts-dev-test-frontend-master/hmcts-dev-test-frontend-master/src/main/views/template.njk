@@ -1,0 +1,21 @@
+{% extends "govuk/template.njk" %}
+
+{% block head %}
+  {% include "webpack/css.njk" %}
+{% endblock %}
+
+{% block bodyEnd %}
+  {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
+  {% include "webpack/js.njk" %}
+{% endblock %}
+
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Page{% endblock %}</title>
+</head>
+<body>
+  {% block content %}{% endblock %}
+</body>
+</html>

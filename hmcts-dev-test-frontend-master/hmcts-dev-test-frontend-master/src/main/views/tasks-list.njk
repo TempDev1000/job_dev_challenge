@@ -1,0 +1,69 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% extends "template.njk" %}
+
+{% block content %}
+  <h1 class="govuk-heading-xl">Tasks List</h1>
+
+  {% if tasks.length %}
+    {% for task in tasks %}
+      <h2 class="govuk-heading-l">Task {{ loop.index }}</h2>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: { text: "ID" },
+            value: { text: task.id },
+            actions: {
+              items: [
+                { href: "#", text: "Change", visuallyHiddenText: "change task id" }
+              ]
+            }
+          },
+          {
+            key: { text: "Case Number" },
+            value: { text: task.caseNumber },
+            actions: {
+              items: [
+                { href: "#", text: "Change", visuallyHiddenText: "change case number" }
+              ]
+            }
+          },
+          {
+            key: { text: "Title" },
+            value: { html: task.title },
+            actions: {
+              items: [
+                { href: "#", text: "Change", visuallyHiddenText: "change case title" }
+              ]
+            }
+          },
+          {
+            key: { text: "Description" },
+            value: { html: task.description },
+            actions: {
+              items: [
+                { href: "#", text: "Delete", visuallyHiddenText: "delete description" },
+                { href: "#", text: "Change", visuallyHiddenText: "change description" }
+              ]
+            }
+          },
+          {
+            key: { text: "Status" },
+            value: { html: task.status },
+            actions: { items: [] }
+          },
+          {
+            key: { text: "Created Date" },
+            value: { html: task.createdDate },
+            actions: { items: [] }
+          }
+        ]
+      }) }}
+
+    {% endfor %}
+  {% else %}
+    <p>No tasks found.</p>
+  {% endif %}
+
+{% endblock %}

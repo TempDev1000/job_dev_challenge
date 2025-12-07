@@ -1,0 +1,26 @@
+{% extends "template.njk" %}
+
+{% block content %}
+  <h1 class="govuk-heading-xl">Create a new Task</h1>
+
+  <form action="/tasks" method="post" class="govuk-form-group">
+    <label class="govuk-label" for="title">Title</label>
+    <input class="govuk-input" id="title" name="title" required>
+
+    <label class="govuk-label" for="description">Description</label>
+    <textarea class="govuk-textarea" id="description" name="description"></textarea>
+
+    <label class="govuk-label" for="status">Status</label>
+      <select class="govuk-select" id="status" name="status" required>
+        <option value="">Please select</option>
+        <option value="TODO">TODO</option>
+        <option value="IN_PROGRESS">IN_PROGRESS</option>
+        <option value="COMPLETED">COMPLETED</option>
+      </select>
+
+    <label class="govuk-label" for="dueDate">Due date/time</label>
+    <input class="govuk-input" type="datetime-local" id="dueDate" name="dueDate" required>
+
+    <button type="submit" class="govuk-button">Create Task</button>
+  </form>
+{% endblock %}

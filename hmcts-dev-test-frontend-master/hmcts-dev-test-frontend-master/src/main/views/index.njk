@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Task</title>
+    <script>
+        async function submitTask(event) {
+            event.preventDefault(); // prevent page reload
+
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+            const status = document.getElementById('status').value;
+            const dueDate = document.getElementById('dueDate').value;
+
+            const task = { title, description, status, dueDate };
+
+            try {
+                const response = await fetch('http://localhost:8080/tasks', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(task)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to create task');
+                }
+
+                const createdTask = await response.json();
+
+                // show success message
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = `
+                    <h3>Task Created!</h3>
+                    <p><strong>Title:</strong> ${createdTask.title}</p>
+                    <p><strong>Description:</strong> ${createdTask.description || 'N/A'}</p>
+                    <p><strong>Status:</strong> ${createdTask.status}</p>
+                    <p><strong>Due Date:</strong> ${new Date(createdTask.dueDate).toLocaleString()}</p>
+                `;
+            } catch (err) {
+                document.getElementById('result').innerHTML = `<p style="color:red;">${err.message}</p>`;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Create a New Task</h1>
+
+    <form id="taskForm" onsubmit="submitTask(event)">
+        <label>Title:</label>
+        <input type="text" id="title" required /><br/><br/>
+
+        <label>Description:</label>
+        <textarea id="description"></textarea><br/><br/>
+
+        <label>Status:</label>
+        <select id="status">
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+        </select><br/><br/>
+
+        <label>Due Date:</label>
+        <input type="datetime-local" id="dueDate" required /><br/><br/>
+
+        <button type="submit">Create Task</button>
+    </form>
+
+    <div id="result" style="margin-top:20px;"></div>
+</body>
+</html>
