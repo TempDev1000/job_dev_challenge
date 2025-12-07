@@ -41,6 +41,7 @@ PostgresSQL will be required to setup with local user/password as well as creati
 	DB_USER_NAME=postgres
 	DB_PASSWORD=taskpass
 5. Make sure to define Poolname too. 
+6. Make sure Load / sync the Gradle
 
 
 ### PostgreSQL Database
@@ -67,6 +68,10 @@ CREATE TABLE public.tasks (
 3) Install dependencies.
 4) Ensure backend is running first before running frontend
 5) Use command ‘npm run start:dev’ to run the frontend project
+
+Routes included
+1) ‘list-tasks’  –  see a list of all tasks
+2)  ‘tasks’ – lets you create a new task
  
 	
 ### Running Tests
